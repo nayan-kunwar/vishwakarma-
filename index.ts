@@ -1,6 +1,7 @@
-#!/usr/bin/env bun
+#!/usr/bin/env bun  // Shebang to allow execution as a CLI tool
 
 import { Command } from "commander";
+import { runWakeup } from "./tui/wakeup";
 
 const program = new Command();
 
@@ -15,6 +16,13 @@ program
     .action(() => {
         console.log("Analyzing codebase...");
         // Add analysis logic here
+    });
+
+program
+    .command("wakeup")
+    .description("Show the banner and pick cli or telegram mode")
+    .action(async () => {
+        await runWakeup()
     });
 
 await program.parseAsync(process.argv);
